@@ -1,2 +1,0 @@
-class LinkShortenerController < ApplicationController
-end

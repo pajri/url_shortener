@@ -1,0 +1,16 @@
+<h1>Shorten a URL</h1>
+
+<%= form_with model: @url, local: true do |form| %>
+  <%= form.text_field :long_url, placeholder: "put your url here https://example.com" %> <br/>
+  <%= form.submit "Shorten" %>
+<% end %>
+
+<ul>
+    <% @advertisements.each do |advertisement| %>
+        <li> <%= advertisement.label %> </li>
+    <% end %>
+</li>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
