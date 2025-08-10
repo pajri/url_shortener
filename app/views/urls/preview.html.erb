@@ -1,0 +1,15 @@
+<div style="text-align: center;">
+    <h1>Advertisement</h1>
+
+    <%# You could show a real ad or promo here %>
+    <p>You're on your way! Please support us by viewing this short message.</p>
+
+    <hr style="margin: 20px auto; width: 50%;">
+
+    <p>Destination: <%= @url.long_url %></p>
+
+    <%= form_with url: go_redirect_path, method: :post, data: { turbo: false }, html: { style: "display: inline-block;" } do %>
+        <%= hidden_field_tag :id, @url.id %>
+        <%= submit_tag "Continue to your link" %>
+    <% end %>
+</div>

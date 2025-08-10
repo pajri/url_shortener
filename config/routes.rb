@@ -12,8 +12,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  ##### START custom routes #####
+  #region ===== START custom routes =====
+
   resources :urls
+  get '/:short_url', to: 'urls#preview', as: :preview # route for interstitial page
+  post '/go', to: 'urls#go', as: :go_redirect
+
   root "urls#index"
 
+  #endregion
 end

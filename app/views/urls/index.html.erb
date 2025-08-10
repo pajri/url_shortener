@@ -1,16 +1,27 @@
-<h1>Shorten a URL</h1>
+<div style="text-align: center; width: 100%;">
+    <h1>Shorten a URL</h1>
 
-<%= form_with model: @url, local: true do |form| %>
-  <%= form.text_field :long_url, placeholder: "put your url here https://example.com" %> <br/>
-  <%= form.submit "Shorten" %>
-<% end %>
-
-<ul>
-    <% @advertisements.each do |advertisement| %>
-        <li> <%= advertisement.label %> </li>
+    <%= form_with url:urls_path, scope: :url_form, local:true do |f| %>
+      <%= f.text_field :long_url, value: @url_form.url&.long_url, placeholder: "put your url here https://example.com", style: "width: 33em; text-align: center;" %> <br />
+      <%= f.submit "Shorten" %>
     <% end %>
-</li>
 
-<% if notice %>
-  <p><%= notice %></p>
-<% end %>
+    <% if @url_form.message.present? %>
+      <p> <%= @url_form.message %> </p>
+
+      <% if @url_form.success %>
+        <ul>
+          <li>long url: <%= @url_form.url.long_url %> </li>
+          <li>short url: <%= @url_form.url.short_url %> </li>
+          <li>expired by: <%= @url_form.url.expiration_date %> </li>
+        </ul>
+      <% else %>
+        <% if @url_form.url.errors[:long_url].any? %>
+          <div style="color: red;">
+              <%= @url_form.url.errors[:long_url].join(', ') %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+</div>

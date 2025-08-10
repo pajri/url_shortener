@@ -1,7 +1,6 @@
 class CreateUrls < ActiveRecord::Migration[8.0]
   def change
-    create_table :urls, id: false, primary_key: :id do |t|
-      t.uuid :id, null: false, default: "gen_random_uuid()"
+    create_table :urls, id: uuid do |t|
       t.string :long_url
       t.string :short_url
       t.datetime :expiration_date
