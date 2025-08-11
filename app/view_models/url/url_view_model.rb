@@ -1,4 +1,4 @@
-module ViewModel
+module ViewModels
   module Url
     class UrlViewModel
       include ActiveModel::Model

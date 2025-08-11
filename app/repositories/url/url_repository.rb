@@ -13,6 +13,14 @@ module Repositories
                 
                 new_url.save
             end
+
+            def find_by(short_url:)
+                ::Url.find_by(short_url: short_url)
+            end
+
+            def find(id:)
+                ::Url.find(id)
+            end
         end
     end
 end

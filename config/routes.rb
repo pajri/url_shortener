@@ -14,9 +14,10 @@ Rails.application.routes.draw do
 
   #region ===== START custom routes =====
 
-  resources :urls
-  get '/:short_url', to: 'urls#preview', as: :preview # route for interstitial page
-  post '/go', to: 'urls#go', as: :go_redirect
+  resources :urls, only: [:index,:create]
+  
+  get '/:short_url', to: 'url_redirection#index', as: :preview # route for interstitial page
+  post '/go', to: 'url_redirection#go', as: :go_redirect
 
   root "urls#index"
 

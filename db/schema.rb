@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_062254) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_144746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -28,11 +28,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_062254) do
     t.index ["advertisement_id"], name: "index_advertisement_analytics_on_advertisement_id"
   end
 
+  create_table "advertisement_pointers", force: :cascade do |t|
+    t.integer "last_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "advertisements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "label"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
   end
 
   create_table "urls", id: false, force: :cascade do |t|

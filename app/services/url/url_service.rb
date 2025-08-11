@@ -19,6 +19,14 @@ module Services
 
                 return url_domain
             end
+
+            def find_by(short_url:)
+                url = @repo.find_by(short_url: short_url)
+            end
+
+            def find(id:)
+                url = @repo.find(id: id)
+            end
             
             private
             

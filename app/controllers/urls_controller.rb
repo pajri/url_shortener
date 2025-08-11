@@ -1,5 +1,5 @@
 # load view model
-require Rails.root.join('app/view_model/url/url_view_model')
+require Rails.root.join('app/view_models/url/url_view_model')
 
 # load services
 require Rails.root.join('app/services/advertisement/advertisement_service')
@@ -10,7 +10,7 @@ require Rails.root.join('app/repositories/advertisement/advertisement_repository
 require Rails.root.join('app/repositories/url/url_repository')
 
 # load dto
-require Rails.root.join('app/dto/url/url_dto')
+require Rails.root.join('app/dtos/url/url_dto')
 
 class UrlsController < ApplicationController
   before_action :load_advertisements, only: [:index, :create]
@@ -24,15 +24,11 @@ class UrlsController < ApplicationController
   end
 
   def index
-    puts 'index'
-    #TODO:order by and show only not expired ad
-    #TODO add is_display column
-    @url_form = ViewModel::Url::UrlViewModel.new
   end
   
   def create 
     #validate input
-    @url  = Dto::Url::UrlDto.new(long_url: url_param[:long_url])
+    @url  = Dtos::Url::UrlDto.new(long_url: url_param[:long_url])
 
     if !@url.valid? #invalid url
       @url_form.success = false
@@ -47,27 +43,9 @@ class UrlsController < ApplicationController
     @url_form.url = saved_url
     @url_form.message = "url shortened successfully"
 
+
     render :index
-  end
-  
-  def preview
-    @url = Url.find_by(short_url: params[:short_url])
-    #TODO: get advertisement
-    if @url.nil? #nil? is method name. the ruby convention '?' means the method return boolean
-      render plain: "url not found", status: :not_found
-    elsif @url.expiration_date.present? && @url.expiration_date < Date.today # present has more condition. not just nil, it can be empty as well. ti is from active records
-      render plain: "this short url has expired", status: :gone
-    else
-      #TODO insert advertisement info to database
-      render :preview
-    end
-  end
-  
-  def go
-    @url = Url.find(params[:id])
-    redirect_to @url.long_url, allow_other_host: true
-  end
-  
+  end  
   #region private
   private
   def url_param
@@ -82,7 +60,7 @@ class UrlsController < ApplicationController
   end
 
   def load_advertisements
-    @url_form ||= ViewModel::Url::UrlViewModel.new
+    @url_form ||= ViewModels::Url::UrlViewModel.new
     @url_form.advertisements = @advertisement_service.list_advertisement || []
   end
   #endregion

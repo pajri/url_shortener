@@ -10,11 +10,11 @@
       <p> <%= @url_form.message %> </p>
 
       <% if @url_form.success %>
-        <ul>
-          <li>long url: <%= @url_form.url.long_url %> </li>
-          <li>short url: <%= @url_form.url.short_url %> </li>
-          <li>expired by: <%= @url_form.url.expiration_date %> </li>
-        </ul>
+        
+        long url: <%= @url_form.url.long_url %> <br/>
+        short url: <%= @url_form.url.short_url %> <br/>
+        expired by: <%= @url_form.url.expiration_date %> <br/>
+        
       <% else %>
         <% if @url_form.url.errors[:long_url].any? %>
           <div style="color: red;">
@@ -22,6 +22,12 @@
           </div>
         <% end %>
       <% end %>
+    <% end %>
+
+    <hr/>
+    <h3> advertisements</h3>
+    <% @url_form.advertisements.each do |ad| %>
+      <%= ad.label %>, <%= ad.image_url %> <br/>
     <% end %>
 
 </div>

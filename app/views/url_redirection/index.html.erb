@@ -1,0 +1,54 @@
+<h1> header </h1>
+<hr/>
+
+<%# convert to tempalte %>
+<p>
+  <% case @url_redirection_view_model.status %>
+  <% when :success %>
+    <%= form_with url: go_redirect_path, method: :post, data: { turbo: false }, html: { style: "display: inline-block;" } do %>
+      <%= hidden_field_tag :id, @url_redirection_view_model.url.id %>
+      <%= submit_tag "Continue to your link" %>
+    <% end %>
+  <% when :not_found %>
+      <%= @url_redirection_view_model.message %>
+  <% when :gone %>
+      <%= @url_redirection_view_model.message %>
+  <% end %>
+</p>
+
+<h3> --- advertisement --- </h3>
+<% @advertisement = @url_redirection_view_model.advertisement %>
+<div> 
+  <%= @advertisement.label %> <br/> 
+  <%= @advertisement.image_url %>
+</div>
+
+<hr/>
+<h1> footer </h1>
+
+<style>
+  h1 {
+      width: 100%;
+      text-align: center;
+  }
+
+  h3 {
+      width: 100%;
+      text-align: center;
+  }
+
+  form {
+      width: 100%;
+      text-align: center;
+  }
+
+  p {
+      width: 100%;
+      text-align: center;
+  }
+
+  div {
+      width: 100%;
+      text-align: center;
+  }
+</style>
