@@ -1,16 +1,16 @@
 # load view model
-require Rails.root.join('app/view_models/url/url_view_model')
+require_relative '../view_models/url/url_view_model'
 
 # load services
-require Rails.root.join('app/services/advertisement/advertisement_service')
-require Rails.root.join('app/services/url/url_service')
+require_relative '../services/advertisement/advertisement_service'
+require_relative '../services/url/url_service'
 
 # load repository
-require Rails.root.join('app/repositories/advertisement/advertisement_repository')
-require Rails.root.join('app/repositories/url/url_repository')
+require_relative '../repositories/advertisement/advertisement_repository'
+require_relative '../repositories/url/url_repository'
 
 # load dto
-require Rails.root.join('app/dtos/url/url_dto')
+require_relative '../dtos/url/url_dto'
 
 class UrlsController < ApplicationController
   before_action :load_advertisements, only: [:index, :create]

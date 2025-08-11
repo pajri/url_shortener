@@ -1,13 +1,13 @@
 # load repo
-require Rails.root.join('app/repositories/url/url_repository')
-require Rails.root.join('app/repositories/advertisement/advertisement_repository')
+require_relative '../repositories/url/url_repository'
+require_relative '../repositories/advertisement/advertisement_repository'
 
 # load service
-require Rails.root.join('app/services/url/url_service')
-require Rails.root.join('app/services/url_redirection/url_redirection_service')
+require_relative '../services/url/url_service'
+require_relative '../services/url_redirection/url_redirection_service'
 
 # load dto
-require Rails.root.join('app/view_models/url_redirection/url_redirection_view_model')
+require_relative '../view_models/url_redirection/url_redirection_view_model'
 
 
 UrlRedirectionViewModel = ::ViewModels::UrlRedirection::UrlRedirectionViewModel
