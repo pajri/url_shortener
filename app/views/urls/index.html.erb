@@ -39,9 +39,8 @@
         <% @url_form.advertisements.each do |ad| %>
         <div class="menu-item">
             <img src="<%= ad.image_url %>" alt="<%= ad.label %>" class="menu-item-image">
-            <div class="menu-item-content">
+            <div class="menu-item-content advertisement-listing-label">
                 <h3><%= ad.label %></h3>
-                <button class="ingredients-btn" onclick="showIngredients('truffle-risotto')">View Ingredients</button>
             </div>
         </div>
         <% end %>
