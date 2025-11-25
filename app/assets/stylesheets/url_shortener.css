@@ -27,3 +27,23 @@
 .copy-btn:hover {
   background: #c0392b;
 }
+
+.menu-item .advertisement {
+  height: auto;
+}
+
+.advertisement-detail-label {
+  text-align: center;
+}
+
+.redirection-section {
+  text-align: center;
+  margin-top: 7rem;
+  margin-bottom: 0rem;
+  padding: 0rem;
+}
+
+.redirection-section .reservation {
+  padding: 1rem;
+  margin: 0;
+}
