@@ -12,17 +12,7 @@ require_relative '../view_models/url_redirection/url_redirection_view_model'
 
 UrlRedirectionViewModel = ::ViewModels::UrlRedirection::UrlRedirectionViewModel
 class UrlRedirectionController < ApplicationController
-  def initialize
-    @url_repository = Repositories::Url::UrlRepository.new
-    @ad_repo = Repositories::Advertisement::AdvertisementRepository.new
-    
-    @redirection_service = Services::UrlRedirection::UrlRedirectionService.new(
-      url_repo: @url_repository,
-      ad_repo: @ad_repo
-    )
-
-    @url_service = Services::Url::UrlService.new(repo: @url_repository)
-  end
+  before_action :setup_services
 
   def index
     analytics_dto = Dtos::UrlRedirection::AnalyticsDto.new(
@@ -53,5 +43,18 @@ class UrlRedirectionController < ApplicationController
   def go
     @url = @url_service.find(id: params[:id])
     redirect_to @url.long_url, allow_other_host: true
+  end
+
+  private
+  def setup_services
+    @url_repository = Repositories::Url::UrlRepository.new
+    @ad_repo = Repositories::Advertisement::AdvertisementRepository.new
+    
+    @redirection_service = Services::UrlRedirection::UrlRedirectionService.new(
+      url_repo: @url_repository,
+      ad_repo: @ad_repo
+    )
+
+    @url_service = Services::Url::UrlService.new(repo: @url_repository)
   end
 end

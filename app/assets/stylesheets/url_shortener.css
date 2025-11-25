@@ -1,0 +1,29 @@
+.url-shortener {
+    padding-top: 5rem;
+}
+
+.url-short-message-box {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.short-url-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.copy-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.copy-btn:hover {
+  background: #c0392b;
+}

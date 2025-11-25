@@ -13,15 +13,8 @@ require_relative '../repositories/url/url_repository'
 require_relative '../dtos/url/url_dto'
 
 class UrlsController < ApplicationController
+  before_action :setup_services
   before_action :load_advertisements, only: [:index, :create]
-
-  def initialize
-    @advertisement_repository = Repositories::Advertisement::AdvertisementRepository.new
-    @advertisement_service = Services::Advertisement::AdvertisementService.new(repo: @advertisement_repository)
-
-    @url_repository = Repositories::Url::UrlRepository.new
-    @url_service = Services::Url::UrlService.new(repo: @url_repository)
-  end
 
   def index
   end
@@ -39,9 +32,14 @@ class UrlsController < ApplicationController
     end
 
     saved_url = @url_service.shorten_url(@url)
+
+    host = request.base_url
+    full_short_url  = @url_service.generate_full_short_url(host, saved_url.short_url)
+    saved_url.short_url = full_short_url
+
     @url_form.success = true
     @url_form.url = saved_url
-    @url_form.message = "url shortened successfully"
+    @url_form.message = "Your short url: ";
 
 
     render :index
@@ -62,6 +60,14 @@ class UrlsController < ApplicationController
   def load_advertisements
     @url_form ||= ViewModels::Url::UrlViewModel.new
     @url_form.advertisements = @advertisement_service.list_advertisement || []
+  end
+
+  def setup_services
+    @advertisement_repository = Repositories::Advertisement::AdvertisementRepository.new
+    @advertisement_service = Services::Advertisement::AdvertisementService.new(repo: @advertisement_repository)
+
+    @url_repository = Repositories::Url::UrlRepository.new
+    @url_service = Services::Url::UrlService.new(repo: @url_repository)
   end
   #endregion
   

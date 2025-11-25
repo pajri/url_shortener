@@ -20,6 +20,10 @@ module Services
                 return url_domain
             end
 
+            def generate_full_short_url(host, short_url)
+                return "#{host}/#{short_url}"
+            end
+
             def find_by(short_url:)
                 url = @repo.find_by(short_url: short_url)
             end

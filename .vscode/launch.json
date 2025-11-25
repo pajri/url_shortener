@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rails server (with debug)",
+      "type": "rdbg",
+      "request": "launch",
+      "program": "${workspaceRoot}/bin/rails",
+      "args": ["server"],
+      "useBundler": true,
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "RUBY_DEBUG_OPEN": "true",
+        "RUBY_DEBUG_MODE": "open"
+      }
+    }
+  ]
+}

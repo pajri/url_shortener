@@ -1,20 +1,26 @@
-<div style="text-align: center; width: 100%;">
-    <h1>Shorten a URL</h1>
+<section class="url-shortener">
+  <div class="reservation">
+    <h2>Shorten a URL</h2>
+    <div>
+      <%= form_with url:urls_path, scope: :url_form, local:true, html: { class: "reservation-form" }, data: { turbo: false } do |f| %>
+        <div class="form-group">
+          <%= f.text_field :long_url, value: @url_form.url&.long_url, placeholder: "Put your URL here https://example.com" %> <br />
+        </div>
+        <%= f.submit "Shorten URL", class: "submit-btn" %>
+      <% end %>
+    <div>
 
-    <%= form_with url:urls_path, scope: :url_form, local:true do |f| %>
-      <%= f.text_field :long_url, value: @url_form.url&.long_url, placeholder: "put your url here https://example.com", style: "width: 33em; text-align: center;" %> <br />
-      <%= f.submit "Shorten" %>
-    <% end %>
-
+    <div class="url-short-message-box">
     <% if @url_form.message.present? %>
       <p> <%= @url_form.message %> </p>
 
       <% if @url_form.success %>
-        
-        long url: <%= @url_form.url.long_url %> <br/>
-        short url: <%= @url_form.url.short_url %> <br/>
-        expired by: <%= @url_form.url.expiration_date %> <br/>
-        
+        <div class="short-url-wrapper"> 
+          <a id="short-url" target="_blank" href="<%= @url_form.url.short_url %>"><%= @url_form.url.short_url %></a>
+          <button id="copy-btn" class="copy-btn">Copy</button>
+        </div>
+        <p> Your url will be expired by <%= @url_form.url.expiration_date %> </p>
+
       <% else %>
         <% if @url_form.url.errors[:long_url].any? %>
           <div style="color: red;">
@@ -23,11 +29,21 @@
         <% end %>
       <% end %>
     <% end %>
+    </div>
+  </div>
+</section>
 
-    <hr/>
-    <h3> advertisements</h3>
-    <% @url_form.advertisements.each do |ad| %>
-      <%= ad.label %>, <%= ad.image_url %> <br/>
-    <% end %>
-
-</div>
+<section id="menu">
+    <h2>Advertisements</h2>
+    <div class="menu-grid">
+        <% @url_form.advertisements.each do |ad| %>
+        <div class="menu-item">
+            <img src="<%= ad.image_url %>" alt="<%= ad.label %>" class="menu-item-image">
+            <div class="menu-item-content">
+                <h3><%= ad.label %></h3>
+                <button class="ingredients-btn" onclick="showIngredients('truffle-risotto')">View Ingredients</button>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</section>
