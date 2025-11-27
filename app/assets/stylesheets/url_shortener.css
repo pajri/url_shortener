@@ -2,10 +2,65 @@
     padding-top: 5rem;
 }
 
+/* START MESSAGE BOX*/
+/* Base box */
 .url-short-message-box {
-    text-align: center;
-    margin-top: 1rem;
+  text-align: center;
+  position: relative;
+  margin: 1rem auto;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 14px;
 }
+
+/* Close button */
+.url-short-message-box .close-btn {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.url-short-message-box .close-btn:hover {
+  opacity: 1;
+}
+
+/* Success */
+.url-short-message-box.success {
+  background-color: #e8f9ee;
+  border-left: 6px solid #33b864;
+  color: #1e6d38;
+}
+
+.url-short-message-box.success .close-btn {
+  color: #1e6d38;
+}
+
+/* Error */
+.url-short-message-box.error {
+  background-color: #fdeeee;
+  border-left: 6px solid #e74c3c;
+  color: #c0392b;
+}
+
+.url-short-message-box.error ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.url-short-message-box.error li {
+  margin-bottom: 4px;
+}
+
+.url-short-message-box.error .close-btn {
+  color: #c0392b;
+}
+/* END MESSAGE BOX*/
 
 .short-url-wrapper{
   display: flex;

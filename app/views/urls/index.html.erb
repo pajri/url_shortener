@@ -4,32 +4,47 @@
     <div>
       <%= form_with url:urls_path, scope: :url_form, local:true, html: { class: "reservation-form" }, data: { turbo: false } do |f| %>
         <div class="form-group">
-          <%= f.text_field :long_url, value: @url_form.url&.long_url, placeholder: "Put your URL here https://example.com" %> <br />
+          <%= f.text_field :long_url, value: @url_form.url&.long_url, placeholder: "Put your long URL here https://example.com" %> <br />
         </div>
         <%= f.submit "Shorten URL", class: "submit-btn" %>
       <% end %>
     <div>
 
-    <div class="url-short-message-box">
+    
     <% if @url_form.message.present? %>
-      <p> <%= @url_form.message %> </p>
+    
 
       <% if @url_form.success %>
-        <div class="short-url-wrapper"> 
-          <a id="short-url" target="_blank" href="<%= @url_form.url.short_url %>"><%= @url_form.url.short_url %></a>
-          <button id="copy-btn" class="copy-btn">Copy</button>
+        <%# success message block %>
+
+        <div class="url-short-message-box success" id="message-box">
+          <button class="close-btn" onclick="document.getElementById('message-box').style.display='none'">×</button>
+          <p> <%= @url_form.message %> </p>
+    
+
+          <div class="short-url-wrapper"> 
+            <a id="short-url" target="_blank" href="<%= @url_form.url.short_url %>"><%= @url_form.url.short_url %></a>
+            <button id="copy-btn" class="copy-btn">Copy</button>
+          </div>
+          <p> Your url will be expired by <%= @url_form.url.expiration_date %> </p>
         </div>
-        <p> Your url will be expired by <%= @url_form.url.expiration_date %> </p>
 
       <% else %>
-        <% if @url_form.url.errors[:long_url].any? %>
-          <div style="color: red;">
-              <%= @url_form.url.errors[:long_url].join(', ') %>
-          </div>
-        <% end %>
+        <%# error message block %>
+        <div class="url-short-message-box error" id="message-box">
+          <button class="close-btn" onclick="document.getElementById('message-box').style.display='none'">×</button>
+
+          <p> <%= @url_form.message %> </p>
+          <% if @url_form.url.errors[:long_url].any? %>  
+            <div style="color: red;">
+                <% @url_form.url.errors.full_messages.each do |msg| %>
+                  <p><%= msg %></p>
+                <% end %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
-    </div>
   </div>
 </section>
 

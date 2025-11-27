@@ -1,32 +1,38 @@
 # load view model
-require_relative '../view_models/url/url_view_model'
+require_relative "../view_models/url/url_view_model"
 
 # load services
-require_relative '../services/advertisement/advertisement_service'
-require_relative '../services/url/url_service'
+require_relative "../services/advertisement/advertisement_service"
+require_relative "../services/url/url_service"
 
 # load repository
-require_relative '../repositories/advertisement/advertisement_repository'
-require_relative '../repositories/url/url_repository'
+require_relative "../repositories/advertisement/advertisement_repository"
+require_relative "../repositories/url/url_repository"
 
 # load dto
-require_relative '../dtos/url/url_dto'
+require_relative "../dtos/url/url_dto"
 
 class UrlsController < ApplicationController
   before_action :setup_services
-  before_action :load_advertisements, only: [:index, :create]
+  before_action :load_advertisements, only: [ :index, :create ]
 
   def index
   end
-  
-  def create 
-    #validate input
+
+  def create
+    # validate input
     @url  = Dtos::Url::UrlDto.new(long_url: url_param[:long_url])
 
-    if !@url.valid? #invalid url
+    if !@url.valid? # invalid url
       @url_form.success = false
       @url_form.url = @url
-      @url_form.message = "an error uccured during shortening url"
+      @url_form.message = "Error while shortening URL: "
+
+      @url.errors.full_messages.each do |msg|
+        puts "the message is"
+        puts msg
+      end
+
       render :index,  status: :unprocessable_content
       return
     end
@@ -39,17 +45,17 @@ class UrlsController < ApplicationController
 
     @url_form.success = true
     @url_form.url = saved_url
-    @url_form.message = "Your short url: ";
+    @url_form.message = "Your short url: "
 
 
     render :index
-  end  
-  #region private
+  end
+  # region private
   private
   def url_param
     params.require(:url_form).permit(:long_url)
   end
-  
+
   def generate_short_code
     loop do
       code = SecureRandom.alphanumeric(8)
@@ -69,6 +75,5 @@ class UrlsController < ApplicationController
     @url_repository = Repositories::Url::UrlRepository.new
     @url_service = Services::Url::UrlService.new(repo: @url_repository)
   end
-  #endregion
-  
+  # endregion
 end
