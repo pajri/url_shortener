@@ -1,13 +1,13 @@
 # load repo
-require_relative '../repositories/url/url_repository'
-require_relative '../repositories/advertisement/advertisement_repository'
+require_relative "../repositories/repositories/url/url_repository"
+require_relative "../repositories/repositories/advertisement/advertisement_repository"
 
 # load service
-require_relative '../services/url/url_service'
-require_relative '../services/url_redirection/url_redirection_service'
+require_relative "../services/services/url/url_service"
+require_relative "../services/services/url_redirection/url_redirection_service"
 
 # load dto
-require_relative '../view_models/url_redirection/url_redirection_view_model'
+require_relative "../view_models/view_models/url_redirection/url_redirection_view_model"
 
 
 UrlRedirectionViewModel = ::ViewModels::UrlRedirection::UrlRedirectionViewModel
@@ -39,7 +39,7 @@ class UrlRedirectionController < ApplicationController
 
     render :index
   end
-  
+
   def go
     @url = @url_service.find(id: params[:id])
     redirect_to @url.long_url, allow_other_host: true
@@ -49,7 +49,7 @@ class UrlRedirectionController < ApplicationController
   def setup_services
     @url_repository = Repositories::Url::UrlRepository.new
     @ad_repo = Repositories::Advertisement::AdvertisementRepository.new
-    
+
     @redirection_service = Services::UrlRedirection::UrlRedirectionService.new(
       url_repo: @url_repository,
       ad_repo: @ad_repo

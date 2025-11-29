@@ -1,4 +1,4 @@
-require_relative '../../domains/url/url_domain'
+require_relative "../../../domains/domains/url/url_domain"
 
 module Services
     module Url
@@ -6,22 +6,22 @@ module Services
             def initialize(repo:)
                 @repo = repo
             end
-            
+
             def shorten_url(url)
                 short_url = generate_short_code
-                
+
                 url_domain = Domains::Url::UrlDomain.new(
                     long_url: url.long_url,
                     short_url: short_url
                 )
-                
+
                 @repo.save(url_domain)
 
-                return url_domain
+                url_domain
             end
 
             def generate_full_short_url(host, short_url)
-                return "#{host}/#{short_url}"
+                "#{host}/#{short_url}"
             end
 
             def find_by(short_url:)
@@ -31,9 +31,9 @@ module Services
             def find(id:)
                 url = @repo.find(id: id)
             end
-            
+
             private
-            
+
             def generate_short_code
                 loop do
                     code = SecureRandom.alphanumeric(8)
