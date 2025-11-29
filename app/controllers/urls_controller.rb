@@ -1,17 +1,3 @@
-# load view model
-require_relative "../view_models/view_models/url/url_view_model"
-
-# load services
-require_relative "../services/services/advertisement/advertisement_service"
-require_relative "../services/services/url/url_service"
-
-# load repository
-require_relative "../repositories/repositories/advertisement/advertisement_repository"
-require_relative "../repositories/repositories/url/url_repository"
-
-# load dto
-require_relative "../dtos/dtos/url/url_dto"
-
 class UrlsController < ApplicationController
   before_action :setup_services
   before_action :load_advertisements, only: [ :index, :create ]

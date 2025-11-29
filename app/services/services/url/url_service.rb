@@ -1,5 +1,3 @@
-require_relative "../../../domains/domains/url/url_domain"
-
 module Services
     module Url
         class UrlService

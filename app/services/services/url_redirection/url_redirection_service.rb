@@ -1,9 +1,5 @@
 require "thread"
 
-require_relative "../../../dtos/dtos/url_redirection/url_redirection_dto"
-require_relative "../../../dtos/dtos/url_redirection/analytics_dto"
-require_relative "../../../common/logger"
-
 UrlRedirectionDto = ::Dtos::UrlRedirection::UrlRedirectionDto
 POINTER_MUTEX = Mutex.new
 
