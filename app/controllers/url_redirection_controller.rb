@@ -1,15 +1,3 @@
-# load repo
-require_relative "../repositories/repositories/url/url_repository"
-require_relative "../repositories/repositories/advertisement/advertisement_repository"
-
-# load service
-require_relative "../services/services/url/url_service"
-require_relative "../services/services/url_redirection/url_redirection_service"
-
-# load dto
-require_relative "../view_models/view_models/url_redirection/url_redirection_view_model"
-
-
 UrlRedirectionViewModel = ::ViewModels::UrlRedirection::UrlRedirectionViewModel
 class UrlRedirectionController < ApplicationController
   before_action :setup_services
