@@ -10,6 +10,9 @@
 # Ignore all environment files.
 /.env*
 
+#include example
+!*.example 
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -120,3 +123,6 @@ pickle-email-*.html
 *.old
 *.jar
 xerial*.*
+
+# credentials
+/config/credentials.yml.enc
