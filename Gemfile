@@ -67,3 +67,7 @@ end
 group :development, :test do
   gem "dotenv-rails"
 end
+
+group :development do
+  gem "bundler-audit", require: false
+end
