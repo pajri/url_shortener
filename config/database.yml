@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USERNAME") { Rails.application.credentials.dig(:db, :username) } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { Rails.application.credentials.dig(:db, :password) } %>
+  host: <%= ENV.fetch("DB_HOST") { Rails.application.credentials.dig(:db, :host) } %>
+  timeout: 5000
+  database: <%= ENV.fetch("DB_NAME") { Rails.application.credentials.dig(:db, :name) } %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: url_shortener_test
+
+production:
+  primary:
+    <<: *default
+
