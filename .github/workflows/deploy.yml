@@ -32,6 +32,10 @@ jobs:
             echo "Installing gems..."
             export RAILS_ENV=production
             export RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+
+            echo "RAILS_ENV is set to: $RAILS_ENV"
+            echo "RAILS_MASTER_KEY first 4 chars: ${RAILS_MASTER_KEY:0:4}******"
+
             /home/pajri_url-shortener/.rbenv/shims/bundle install --without development test
 
             echo "Precompiling assets..."
