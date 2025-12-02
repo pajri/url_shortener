@@ -32,6 +32,10 @@ jobs:
             export DB_HOST=${{ secrets.DB_HOST }}
             export DB_NAME=${{ secrets.DB_NAME }}
 
+            echo "DB_USERNAME=$DB_USERNAME"
+            echo "DB_HOST=$DB_HOST"
+            echo "DB_NAME=$DB_NAME"
+
             echo "Fetching latest code..."
             git fetch --all
             git reset --hard origin/main
