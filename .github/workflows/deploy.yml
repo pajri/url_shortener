@@ -25,18 +25,16 @@ jobs:
 
             cd /home/pajri_url-shortener/project/url_shortener
 
+            echo "assigning environment variables"
+            export RAILS_ENV=production
+            export DB_USERNAME=${{ secrets.DB_USERNAME }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            export DB_HOST=${{ secrets.DB_HOST }}
+            export DB_NAME=${{ secrets.DB_NAME }}
+
             echo "Fetching latest code..."
             git fetch --all
             git reset --hard origin/main
-
-            echo "Installing gems..."
-            export RAILS_ENV=production
-            export RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
-
-            echo "RAILS_ENV is set to: $RAILS_ENV"
-            echo "RAILS_MASTER_KEY first 4 chars: ${RAILS_MASTER_KEY:0:4}******"
-
-            
 
             echo "Configuring Bundler to skip development and test groups..."
             /home/pajri_url-shortener/.rbenv/shims/bundle config set without 'development test'
@@ -46,9 +44,6 @@ jobs:
 
             echo "Precompiling assets..."
             /home/pajri_url-shortener/.rbenv/shims/bundle exec rake assets:precompile
-
-            echo "showing credentials"
-            /home/pajri_url-shortener/.rbenv/shims/bundle exec bin/rails credentials:show
             
             echo "Running migrations..."
             /home/pajri_url-shortener/.rbenv/shims/bundle exec rake db:migrate
