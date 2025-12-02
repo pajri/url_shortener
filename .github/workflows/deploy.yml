@@ -48,7 +48,7 @@ jobs:
             /home/pajri_url-shortener/.rbenv/shims/bundle exec rake assets:precompile
 
             echo "showing credentials"
-            bin/rails credentials:show
+            bundle exec bin/rails credentials:show
             
             echo "Running migrations..."
             /home/pajri_url-shortener/.rbenv/shims/bundle exec rake db:migrate
