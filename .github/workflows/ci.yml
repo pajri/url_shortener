@@ -1,0 +1,67 @@
+name: CI - Rails
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Run Rails Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: rails_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://rails:password@localhost:5432/rails_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2  # change if needed
+          bundler-cache: true
+
+      - name: Prepare DB
+        run: bin/rails db:prepare
+
+      - name: Run Test Suite
+        run: bundle exec rake
+
+  lint:
+    name: Lint & Security Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+
+      - name: Generate Binstubs
+        run: bundle binstubs bundler-audit brakeman rubocop
+
+      - name: Dependencies Security Audit
+        run: bin/bundler-audit --update
+
+      - name: App Security Scan
+        run: bin/brakeman -q -w2
+
+      - name: Rubocop Lint
+        run: bin/rubocop --parallel

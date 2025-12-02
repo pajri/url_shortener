@@ -1,0 +1,46 @@
+name: Deploy - Rails Production
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    needs: []  # <-- CI runs in separate file
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            echo "Deploying Rails application..."
+
+            cd /home/pajri_url-shortener/project/url_shortener
+
+            echo "Fetching latest code..."
+            git fetch --all
+            git reset --hard origin/main
+
+            echo "Installing gems..."
+            export RAILS_ENV=production
+            export RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+            /home/pajri_url-shortener/.rbenv/shims/bundle install --without development test
+
+            echo "Precompiling assets..."
+            /home/pajri_url-shortener/.rbenv/shims/bundle exec rake assets:precompile
+
+            echo "Running migrations..."
+            /home/pajri_url-shortener/.rbenv/shims/bundle exec rake db:migrate
+
+            echo "Restarting Puma service..."
+            sudo systemctl restart puma
+
+            echo "Deployment completed!"

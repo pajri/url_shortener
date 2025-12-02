@@ -9,6 +9,5 @@ module Services
                 @repo.list_advertisement
             end
         end
-        
     end
 end

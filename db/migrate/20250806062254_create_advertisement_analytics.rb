@@ -12,7 +12,7 @@ class CreateAdvertisementAnalytics < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_foreign_key :advertisement_analytics, :advertisements, column: :advertisement_id, primary_key: :id 
+    add_foreign_key :advertisement_analytics, :advertisements, column: :advertisement_id, primary_key: :id
     add_index :advertisement_analytics, :advertisement_id
   end
 end
