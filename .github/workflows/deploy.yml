@@ -36,7 +36,11 @@ jobs:
             echo "RAILS_ENV is set to: $RAILS_ENV"
             echo "RAILS_MASTER_KEY first 4 chars: ${RAILS_MASTER_KEY:0:4}******"
 
-            /home/pajri_url-shortener/.rbenv/shims/bundle install --without development test
+            echo "Configuring Bundler to skip development and test groups..."
+            /home/pajri_url-shortener/.rbenv/shims/bundle config set without 'development test'
+
+            echo "Installing gems..."
+            /home/pajri_url-shortener/.rbenv/shims/bundle install
 
             echo "Precompiling assets..."
             /home/pajri_url-shortener/.rbenv/shims/bundle exec rake assets:precompile
