@@ -126,3 +126,5 @@ xerial*.*
 
 # credentials
 /config/credentials.yml.enc
+/config/credentials/production.key
+/config/credentials/development.key
