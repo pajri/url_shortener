@@ -1,5 +1,5 @@
 # logger.rb
-require 'logger'
+require "logger"
 
 # this is currently not used
 LOGGER = Logger.new($stdout)

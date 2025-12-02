@@ -13,7 +13,6 @@ module ViewModels
       def persisted?
         false
       end
-      
     end
   end
 end

@@ -7,7 +7,7 @@ module Repositories
       end
 
       def find_by(order:)
-        ::Advertisement.find_by(order:order)
+        ::Advertisement.find_by(order: order)
       end
       # ===== END url =====
 
@@ -26,7 +26,7 @@ module Repositories
         analytics.save
       end
       # ===== END ad analytics =====
-      
+
       # ===== START ad pointer =====
       def current_pointer
         ::AdvertisementPointer.first
