@@ -2,6 +2,11 @@ name: CI - Rails
 
 on:
   pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "LICENSE"
+      - ".github/**"
+      - "**/*.md"
   push:
     branches: ["main"]
     paths-ignore:
