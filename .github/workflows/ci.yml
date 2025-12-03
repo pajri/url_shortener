@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "LICENSE"
+      - ".github/**"
+      - "**/*.md"
 
 jobs:
   test:
