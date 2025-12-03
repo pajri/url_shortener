@@ -17,7 +17,7 @@
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%# tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -29,6 +29,9 @@
     <%= javascript_importmap_tags %>
     <script src="<%= asset_path 'tooplate-bistro-scripts.js' %>"></script>
     <script src="<%= asset_path 'url_shortener.js' %>"></script>
+
+    <%# google adsense%>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5322855382356681" crossorigin="anonymous"></script>
 </head>
 
 <body>
