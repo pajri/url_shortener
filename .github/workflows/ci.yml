@@ -7,12 +7,14 @@ on:
       - "LICENSE"
       - ".github/**"
       - "**/*.md"
+      - "**/*.txt"
   push:
     branches: ["main"]
     paths-ignore:
       - "LICENSE"
       - ".github/**"
       - "**/*.md"
+      - "**/*.txt"
 
 jobs:
   test:
