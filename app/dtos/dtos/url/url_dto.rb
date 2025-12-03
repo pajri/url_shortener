@@ -13,7 +13,7 @@ module Dtos
       # VALIDATIONS
       validates :long_url,
         presence: true,
-        length: { maximum: 255 },
+        length: { maximum: 4096 },
         format: { with: URL_REGEX }
 
       validates :short_url,
