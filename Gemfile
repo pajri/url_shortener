@@ -64,9 +64,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :development, :test do
-  gem "dotenv-rails"
-end
+gem "dotenv-rails"
 
 group :development do
   gem "bundler-audit", require: false
