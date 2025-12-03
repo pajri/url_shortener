@@ -3,6 +3,10 @@ name: Deploy - Rails Production
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "LICENSE"
+      - ".github/**"
+      - "**/*.md"
 
 jobs:
   deploy:
